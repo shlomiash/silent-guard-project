@@ -1,7 +1,7 @@
 'use client'
 
 //General Imports
-import { set, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { z} from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -48,6 +48,8 @@ export default function LoginForm(){
     //Logic for handling the login form submission
     const res = await handleLogin(values);
     const data = res?.data?.success;
+
+    console.log(res);
 
     if (data){
       setSuccess(true)
