@@ -25,14 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body>
         <div className="max-w-6xl mx-auto">
-          <NavBar/>
+          <NavBar />
           {children}
         </div>
-        
       </body>
     </html>
   );
