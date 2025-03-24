@@ -17,16 +17,24 @@ import { signIn } from "@/auth";
 export const handleLogin = actionClient
   .schema(LoginSchema)
   .action(async ({ parsedInput: { email, password } }) => {
+
+    //Checking if User exists
     const existingUser = await db
-      .select()
-      .from(usersTable)
-      .where(
-        and(eq(usersTable.email, email), eq(usersTable.password, password))
-      );
+    .select()
+    .from(usersTable)
+    .where( eq(usersTable.email, email))
+
     if (existingUser.length === 0) {
       return { error: "Incorrect credentials" };
-    } else {
-      await signIn("credentials", { email, password });
+    }
+
+    //Auth SignIn function, using credentials provider.
+      await signIn("credentials", {
+        email,
+        password,
+        redirectTo: "/dashboard", //Redirect to home page after sign in
+      });
+
       return { success: "Successfully logged in" };
     }
-  });
+);

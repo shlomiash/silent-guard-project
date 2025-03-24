@@ -28,6 +28,7 @@ import { FormError, FormSuccess } from "@/components/auth/form-messages";
 import { LoginSchema } from "@/schemas/login-schema";
 import type {LoginSchemaType } from "@/schemas/login-schema";
 import { handleLogin } from "@/server/actions/handle-login";
+import Link from "next/link";
 
 export default function LoginForm(){
   //Success State
@@ -119,6 +120,9 @@ export default function LoginForm(){
         </div>
         <Button type="submit" className="w-full">
           Login
+        </Button>
+        <Button variant={"outline"} asChild className="w-full">
+          <Link href="/auth/register">Create an account</Link>
         </Button>
       </form>
     </Form>

@@ -1,16 +1,14 @@
 //General imports
 import Link from "next/link";
+import Image from "next/image";
+import { auth } from "@/auth";
 
 //Component imports
 import LoginButton from "./login-button";
+import AdminBar from "./admin-bar";
 
-import Image from "next/image";
-
-import { auth } from "@/auth";
-
-export default function NavBar() {
-  const session = auth();
-  console.log(session);
+export default async function NavBar() {
+  const session = await auth();
   return (
     <nav className=" pt-4 pb-4 px-2 md:pt-6 md:pb-8">
       <ul className="flex justify-between items-center w-full">
@@ -25,7 +23,7 @@ export default function NavBar() {
           </Link>
         </li>
         <li>
-          <LoginButton />
+          {session ? <AdminBar session={session}/> : <LoginButton />}
         </li>
       </ul>
     </nav>

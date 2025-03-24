@@ -32,30 +32,33 @@ import type { RegisterSchemaType } from "@/schemas/register-schema"
 export const RegisterForm = () => {
 
   const [success, setSuccess] = useState<boolean | null>(null);
+  const [message, setMessage] = useState<string | undefined>(undefined);
+
 
   const form = useForm<RegisterSchemaType>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
       name: "",
-      ITid: "",
-      username: "",
+      email: "",
+      ITnumber: "",
       password: "",
       confirmPassword: "",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof RegisterSchema>) => {
-    const result = await handleRegister(values);
-    
- const res = await handleRegister(values);
-     const data = res?.data?.success;
+const onSubmit = async (values: z.infer<typeof RegisterSchema>) => {
+     const res = await handleRegister(values);
+     const data = res?.data
+
  
-     if (data){
+     if (data?.success){
        setSuccess(true)
-       return;
+     }else{
+       setSuccess(false);
+       setMessage(data?.error);
      }
+     return;
  
-     setSuccess(false);
   };
 
   return (
@@ -71,7 +74,7 @@ export const RegisterForm = () => {
                 <div>
                     <FormField
                         control={form.control}
-                        name="ITid"
+                        name="ITnumber"
                         render={({ field }) => (
                         <FormItem>
                             <FormLabel>IT Identifier</FormLabel>
@@ -88,27 +91,7 @@ export const RegisterForm = () => {
                         )}
                     />
                     </div>
-                    <div>
-                    <FormField
-                        control={form.control}
-                        name="username"
-                        render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Username</FormLabel>
-                            <FormControl>
-                            <Input
-                                placeholder="SiletGuard"
-                                type="text"
-                                autoComplete="username"
-                                {...field}
-                            />
-                            </FormControl>
-                            <FormDescription />
-                            <FormMessage />
-                        </FormItem>
-                        )}
-                    />
-                    </div>
+                    
                     <div>
                     <FormField
                         control={form.control}
@@ -121,6 +104,27 @@ export const RegisterForm = () => {
                                 placeholder="yourName"
                                 type="text"
                                 autoComplete="name"
+                                {...field}
+                            />
+                            </FormControl>
+                            <FormDescription />
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                    </div>
+                    <div>
+                    <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                            <Input
+                                placeholder="your-example@gmail.com"
+                                type="email"
+                                autoComplete="email"
                                 {...field}
                             />
                             </FormControl>
@@ -169,7 +173,7 @@ export const RegisterForm = () => {
                         )}
                     />
                     <FormSuccess message={success ? "✅ Your account has been created successfully.": ""} />
-                    <FormError message={success === false ? "❌ Registration Failed, Please try again!" : ""} />
+                    <FormError message={success === false ? ("❌" + message)  : ""} />
                     </div>
                 </div>
                 <Button type="submit" className="w-full">
