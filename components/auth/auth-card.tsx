@@ -22,13 +22,15 @@ type AuthCardProps = {
 
 export default function AuthCard({children,cardTitle,backButtonHref,backButtonLabel} : AuthCardProps){
     return (
-        <Card>
-            <CardHeader>
+        <Card className="flex justify-center h-[98vh]">
+            <CardHeader className="w-full text-center">
                 <CardTitle>{cardTitle}</CardTitle>
             </CardHeader>
             <CardContent>
                 {/* Here the component will be display */}
-                {children}
+                <div className="mx-12"> 
+                    {children}
+                </div>
             </CardContent>
             <CardFooter>
                     {/* Maybe remove the first button will see */}

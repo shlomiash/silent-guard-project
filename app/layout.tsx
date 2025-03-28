@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/nav/nav-bar";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/theme/theme-toggle";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,11 +26,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <div className="max-w-6xl mx-auto">
-          <NavBar />
-          {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className="md:bg-gradient-to-r from-[hsl(191,95%,45%)] to-[hsl(210,90%,40%)]">
+        <div className="p-3">
+          <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+
+              <div>
+                <NavBar />
+                {children}
+              </div>
+            </ThemeProvider>
         </div>
       </body>
     </html>

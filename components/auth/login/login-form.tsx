@@ -63,14 +63,13 @@ export default function LoginForm(){
 
 
   return (
-    <div className="max-w-6xl mx-auto">
     <AuthCard
     cardTitle="Welcome Back!"
     backButtonHref="/"
     backButtonLabel="Return to Homepage"
   >
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mx-auto">
         <div className="flex flex-col gap-4">
           <div>
             <FormField
@@ -127,7 +126,6 @@ export default function LoginForm(){
       </form>
     </Form>
   </AuthCard>
-    </div>
   )
 
 }
