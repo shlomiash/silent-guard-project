@@ -7,7 +7,7 @@ export default function Dashboard() {
           <SideBar/>
         </div>
         <div className="right-side-bar w-full h-full">
-          Right side bar
+          <RightSide/>
         </div>
     </div>
   );

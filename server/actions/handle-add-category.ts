@@ -15,7 +15,6 @@ import { auth } from "@/auth";
 export const handleAddCategory = async ({name,color}:{name:string,color:string}) => {
 
     const session = await auth();
-    console.log("Session:", session);
     const userId = session?.user?.id;
 
     console.log("User ID:", userId);
@@ -28,6 +27,7 @@ export const handleAddCategory = async ({name,color}:{name:string,color:string})
         const existingUser = await db.select()
         .from(usersTable)
         .where(eq(usersTable.id, userId));
+
 
         if (existingUser.length === 0) {
           return { error: "User not found, cannot add category" };
@@ -58,6 +58,7 @@ export const handleAddCategory = async ({name,color}:{name:string,color:string})
         if(existingCategoryColor.length > 0) {
           return { error: "Category color already exists, Select a new color!" };
         }
+
 
         //----Here after we passed the checks-------------
         await db.insert(categoriesTable).values({name,color,userId});

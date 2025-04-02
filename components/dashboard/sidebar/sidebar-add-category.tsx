@@ -33,7 +33,7 @@ import {
 import { Plus } from "lucide-react";
 
 //React Imports
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { handleAddCategory } from "@/server/actions/handle-add-category"
 import { CategorySchema, CategorySchemaType } from "@/schemas/category-schema";
 
@@ -44,6 +44,9 @@ const presetColors = [
     "#10B981", // green-500
     "#3B82F6", // blue-500
   ];
+
+//My imports
+import { FormError, FormSuccess } from "@/components/auth/form-messages";
 
   
 export default function AddCategoryButton(){
@@ -57,16 +60,23 @@ export default function AddCategoryButton(){
       });
 
      //States
-    const refName = useRef<HTMLInputElement>(null);
     const [selectedColor,setSelectedColor] = useState<string>(presetColors[0])
-    const [name,setName] = useState<string>("")
-
+    const [success, setSuccess] = useState<boolean | null>(null);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const handleCategorySubmit = async (values:CategorySchemaType) => { 
-        console.log(values);
-        setName(refName.current?.value || "");
+        
 
-        const res = await handleAddCategory({name,color:selectedColor})
-        console.log(res);
+        const res = await handleAddCategory(values);
+
+        if( res.success){
+            setSuccess(true)
+        }
+        else{
+            setSuccess(false);
+            setErrorMessage(res?.error || "");
+        }
+          
+        
     }
    
 
@@ -117,10 +127,10 @@ export default function AddCategoryButton(){
                                             <div className="col-span-3 space-x-3">
                                                 {/* Color picker */}
                                              {presetColors.map((color)=>(
-                                                            <button
+                                                            <Button
                                                         key={color}
                                                         className={`w-10 h-10 rounded-full border-2
-                                                        opacity-60 cursor-pointer transition ${selectedColor === color ? 'border-black scale-110' : 'border-transparent'}`}
+                                                            opacity-60 cursor-pointer transition ${selectedColor === color ? 'border-black scale-110' : 'border-transparent'}`}
                                                         style={{ backgroundColor: color }}
                                                         onClick={(e) =>{
                                                             e.preventDefault();
@@ -135,7 +145,9 @@ export default function AddCategoryButton(){
                             )}
                             />
                         </div>
-                            <Button type="submit" className="w-full">Save changes</Button> 
+                        <Button variant={"default"} type="submit" className="w-full cursor-pointer">Save changes</Button> 
+                        <FormSuccess message={success ? "Category added successfuly!" : ""} />
+                        <FormError message={success === false ? errorMessage : ""}/>
                     </form>
                 </Form>
                 
@@ -145,31 +157,3 @@ export default function AddCategoryButton(){
 }
 
 
-{/* <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="name" className="text-right">
-                        Name
-                        </Label>
-                        <Input id="name" ref={refName} placeholder="Category Name.." className="col-span-3" />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="color">
-                        Color
-                        </Label>
-                        <div className="col-span-3 space-x-3">
-                        {/* Color picker */}
-                    //     {presetColors.map((color)=>(
-                    //         <button
-                    //         key={color}
-                    //         className={`w-10 h-10 rounded-full border-2
-                    //         opacity-60 cursor-pointer transition ${selectedColor === color ? 'border-black scale-110' : 'border-transparent'}`}
-                    //         style={{ backgroundColor: color }}
-                    //         onClick={() => setSelectedColor(color)}
-                    //     />
-                    //     ))}
-                    //     </div>
-                    // </div>
-                    // </div>
-                    // <DialogFooter>
-                    // <Button type="submit">Save changes</Button>
-                    // </DialogFooter> */}
