@@ -14,7 +14,7 @@ export default function RegisterPage(){
       <div className="w-1/2 relative">
         <Image 
           alt="Login-Pic" 
-          src="/Login-pic.jpg" 
+          src="/background-imgae.jpg" 
           fill
           className="object-cover rounded-r-xl " 
         />

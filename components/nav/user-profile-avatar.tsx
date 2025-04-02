@@ -20,7 +20,7 @@ export default function UserProfileAvatar({session}:{session: Session}) {
     <DropdownMenu >
       <DropdownMenuTrigger asChild className="cursor-pointer">
         <Avatar className="size-10">
-          <AvatarImage/>
+          <AvatarImage src="/profile-avatar.png"/>
           <AvatarFallback className="bg-blue-300">{session.user?.name}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>

@@ -27,16 +27,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="md:bg-gradient-to-r from-[hsl(191,95%,45%)] to-[hsl(210,90%,40%)]">
-        <div className="p-3">
+      <body className="md:bg-gradient-to-r  from-[hsl(191,95%,45%)] to-[hsl(210,90%,40%)] overflow-hidden">
+        <div className="m-3 rounded-xl bg-secondary h-[97vh]">
           <ThemeProvider
                 attribute="class"
                 defaultTheme="system"
                 enableSystem
                 disableTransitionOnChange
               >
-
-              <div>
+              <div className="h-full w-full">
                 <NavBar />
                 {children}
               </div>

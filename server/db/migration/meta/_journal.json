@@ -15,6 +15,13 @@
       "when": 1742743338076,
       "tag": "0001_late_wind_dancer",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1743515356964,
+      "tag": "0002_light_giant_man",
+      "breakpoints": true
     }
   ]
 }

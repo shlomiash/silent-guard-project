@@ -12,20 +12,19 @@ import { ModeToggle } from "../theme/theme-toggle";
 export default async function NavBar() {
   const session = await auth();
   return (
-    <nav className="md:absolute md:top-5 md:left-0 md:w-full md:z-10 md:px-20">
+    <nav className="fixed top-4 left-0 w-full z-10 px-15">
       <ul className="flex justify-between items-center w-full">
-        <li className="">
+        <li>
           <Link href="/">
             <Image
               src="/silent-guard.png" // Path to your image
               alt="Profile picture"
               width={100} // Desired width
               height={100} // Desired height
-              className=""
             />
           </Link>
         </li>
-        <div className="flex space-x-4">
+        <div className="flex space-x-8">
           <li>
             {session ? <AdminBar session={session}/> : <LoginButton />}
           </li>
