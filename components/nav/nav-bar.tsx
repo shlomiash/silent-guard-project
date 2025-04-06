@@ -12,7 +12,7 @@ import { ModeToggle } from "../theme/theme-toggle";
 export default async function NavBar() {
   const session = await auth();
   return (
-    <nav className="fixed top-4 left-0 w-full z-10 px-15">
+    <nav className="fixed top-0 left-0 w-full z-10 px-15">
       <ul className="flex justify-between items-center w-full">
         <li>
           <Link href="/">

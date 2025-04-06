@@ -78,7 +78,6 @@ export default function AddCategoryButton(){
           
         
     }
-   
 
     return (
         <Dialog>

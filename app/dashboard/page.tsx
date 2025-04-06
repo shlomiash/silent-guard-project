@@ -1,8 +1,9 @@
 import SideBar from "@/components/dashboard/sidebar/sidebar";
+import RightSide from "@/components/dashboard/camera-side/right-side";
 
 export default function Dashboard() {
   return (
-    <div className=" h-full w-full flex space-x-2">
+    <div className=" h-full w-full flex">
         <div className="left-side-bar  w-1/6 h-full border-r-2 border-slate-400">
           <SideBar/>
         </div>
