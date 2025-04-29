@@ -1,12 +1,10 @@
-'use client'
 
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+
 
 export default function WelcomeDashboard() {
- 
 
   return (
     <div className="relative h-full bg-gradient-to-br from-blue-100 via-white to-blue-200 justify-center p-8">

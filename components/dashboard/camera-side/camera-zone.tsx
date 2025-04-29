@@ -7,7 +7,7 @@ import CameraCase4 from "./camera-case-4";
 
 export default function CameraZone() {
 
-    const numofImages = 2 ;
+    const numofImages = 3 ;
 
     return(
         <div className="h-full w-full">

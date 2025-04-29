@@ -15,6 +15,8 @@ import CategoryDropDown from "./category-drop-down"
 
 //Categories Data
 import { handleFetchCategories } from "@/server/actions/handle-fetch-categories"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default async function ScrollAreaView() {
     //Fetching the categories from the server
@@ -32,13 +34,18 @@ export default async function ScrollAreaView() {
               {categoriesArray.map((category) => (
                 <div className='grid grid-cols-6 items-center hover:bg-slate-300 p-1 transition rounded-lg cursor-pointer' key={category.name}>
                   <div className='col-span-4'>
-                    <li key={category.name} className=" ">
-                      <div className="flex items-center space-x-4">
-                        <span className="size-3 rounded-full opacity-50" style={{ backgroundColor: category.color  }}  ></span>
-                        <span >{category.name}</span>
-                      </div>
+                    <li key={category.name} className=" "> 
+                          <Link href={`/dashboard/categories/${category.id}`}>
+                              <div className="flex items-center space-x-4">
+                              {/* Circle with color */}
+                              <span className="size-3 rounded-full opacity-50" style={{ backgroundColor: category.color  }}  ></span> 
+                              {/* Category Name */}
+                              <span >{category.name}</span>
+                            </div>
+                          </Link>
                     </li>
                   </div>
+                  {/* category options : delete,rename */}
                   <div className='col-span-2'>
                     <CategoryDropDown categoryID={category.id}/>
                   </div>
