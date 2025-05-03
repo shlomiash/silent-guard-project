@@ -21,8 +21,7 @@ import Link from "next/link"
 export default async function ScrollAreaView() {
     //Fetching the categories from the server
     const categoriesArray = await handleFetchCategories();
-    console.log(categoriesArray)
-
+    
 
     return (
       <div className="flex flex-col space-y-4 justify-center items-center">

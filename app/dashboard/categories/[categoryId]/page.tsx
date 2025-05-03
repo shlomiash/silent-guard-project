@@ -1,5 +1,6 @@
 
 
+import CategoryModeView from "@/components/category/category-mode";
 import CategoryIdError from "@/components/category/error-category";
 import { checkCategoryId } from "@/server/actions/check-category";
 import Link from "next/link";
@@ -14,8 +15,6 @@ export default async function CategoryPage({ params }: { params: { categoryId: s
 
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold">Category: {params.categoryId}</h1>
-    </div>
+    <CategoryModeView categoryId={params.categoryId}/>
   );
 }

@@ -25,6 +25,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="md:bg-gradient-to-r  from-[hsl(191,95%,45%)] to-[hsl(210,90%,40%)] overflow-hidden">

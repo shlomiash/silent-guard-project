@@ -1,6 +1,5 @@
-import SideBar from "@/components/dashboard/sidebar/sidebar";
-import RightSide from "@/components/dashboard/camera-side/right-side";
+import CameraGrid from "@/components/dashboard/camera-side/camera-grid";
 
 export default function LiveViewDashboard({children} : {children: React.ReactNode}) {
-  return <RightSide/>;
+  return <CameraGrid/>;
 }

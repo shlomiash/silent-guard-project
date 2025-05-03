@@ -23,6 +23,7 @@ import { FormError, FormSuccess } from "@/components/auth/form-messages";
 //General Imports
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
+import { addCamera } from "@/server/actions/addCamera";
 
 
 
@@ -38,7 +39,7 @@ export default function AddCameraForm() {
         });
 
     const handleCameraSubmit = async (values: CameraSchemaType) => {
-        console.log('YOOO im here')
+        const result = await addCamera(values);
     }
 
 

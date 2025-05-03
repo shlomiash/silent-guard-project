@@ -20,11 +20,20 @@ import { Session } from "next-auth";
 import { LogOut } from "lucide-react";
 
 export default function UserProfileAvatar({session}:{session: Session}) {
+
+  if(!session) {
+    return null
+  }
+
+  if(!session.user?.image) {
+    session.user!.image = "/profile-avatar.png"
+  }
+
   return (
     <DropdownMenu >
       <DropdownMenuTrigger asChild className="cursor-pointer">
         <Avatar className="size-10">
-          <AvatarImage src="/profile-avatar.png"/>
+          <AvatarImage src={session.user?.image}/>
           <AvatarFallback className="bg-blue-300">{session.user?.name}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
