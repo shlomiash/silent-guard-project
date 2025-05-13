@@ -26,6 +26,8 @@ export default function CameraStreamerManager({ cameras }: { cameras: Camera[] }
       {cameras.map((camera) => {
         const canvasRef = useRef<HTMLCanvasElement>(null)
 
+        // We're only using this instance to monitor for alerts
+        // The actual video display will be handled by CameraCard components
         useCameraStream({
           url: camera.url,
           canvasRef,
@@ -38,7 +40,9 @@ export default function CameraStreamerManager({ cameras }: { cameras: Camera[] }
           },
         })
 
-        return <canvas key={camera.id} ref={canvasRef} style={{ display: 'none' }} />
+        // We don't need to display these canvases at all
+        // They're just there to monitor the streams
+        return <canvas key={camera.id} ref={canvasRef} style={{ display: 'none', width: 1, height: 1 }} />
       })}
 
       {/* Warning UI */}

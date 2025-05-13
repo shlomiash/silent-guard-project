@@ -12,12 +12,30 @@ import type { LoginSchemaType } from "@/schemas/login-schema";
 import { db } from "@/server/db/db";
 import { camerasTable, usersTable } from "../db/schema";
 
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { CameraSchema } from "@/schemas/camera-schema";
 
 export const addCamera = actionClient
   .schema(CameraSchema)
   .action(async ({ parsedInput: { admin,password,url,categoryID,name } }) => {
+
+    ///Check Camera Status 
+
+    
+
+    const session = await auth();
+
+    console.log("User session:", session);
+
+    if (!session){
+      return { error: "Unauthorized: No user session found" };
+    }
+
+    const userId = session.user?.id;
+
+    if (!userId){
+      return { error: "Unauthorized: No user session found" };
+    }
 
     //Checking if User exists
     const existingCamera= await db 
@@ -36,6 +54,8 @@ export const addCamera = actionClient
         throw new Error("Missing required camera data");
       }
 
+    console.log("Camera data:", name, password, url, categoryID, admin);
+
     //If the camera does not exist, add it to the database
     await db.insert(camerasTable).values({
         name,
@@ -43,8 +63,10 @@ export const addCamera = actionClient
         connectionUrl: url,
         categoryId: categoryID,
         admin,
+        userId,
       });   
 
+    console.log("Camera added successfully");
       return { success: "Successfully logged in" };
     }
 );
