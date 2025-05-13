@@ -2,11 +2,21 @@
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
+import { auth } from '@/auth';
+import { getCameras } from '@/server/actions/getCameras';
+import CameraStreamerManager from '@/components/dashboard/camera-side/hook/camera-stream';
 
+export default async function WelcomeDashboard() {
 
-export default function WelcomeDashboard() {
+  const session = await auth()
+
+  if (!session) {
+    return <div>Unauthorized</div>
+  }
+
 
   return (
+    <>
     <div className="relative h-full bg-gradient-to-br from-blue-100 via-white to-blue-200 justify-center p-8">
       {/* Background Image (optional, you can remove if not needed) */}
       <div className="absolute inset-0 z-0 opacity-90">
@@ -52,5 +62,7 @@ export default function WelcomeDashboard() {
           </Button>
       </div>
     </div>
+    </>
+    
   );
 }

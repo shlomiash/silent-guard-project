@@ -24,10 +24,16 @@ import { FormError, FormSuccess } from "@/components/auth/form-messages";
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addCamera } from "@/server/actions/addCamera";
+import { useState } from "react";
 
 
 
-export default function AddCameraForm() {
+export default function AddCameraForm({categoryID}: {categoryID: string}) {
+
+  console.log('yo im here')
+
+  //Success State
+  const [success, setSuccess] = useState<boolean | null>(null);
 
   const form = useForm<CameraSchemaType>({
           resolver: zodResolver(CameraSchema),
@@ -35,11 +41,27 @@ export default function AddCameraForm() {
             admin: "",
             password: "",
             url: "",
+            name: "",
+            categoryID: null,
           },
         });
 
     const handleCameraSubmit = async (values: CameraSchemaType) => {
+        console.log('bla')
+        values.categoryID = categoryID;
         const result = await addCamera(values);
+
+        const data = result?.data?.success;
+
+        console.log(result);
+
+        if (data){
+          setSuccess(true)
+          return;
+        }
+
+      setSuccess(false);
+        
     }
 
 
@@ -106,9 +128,29 @@ export default function AddCameraForm() {
                 )}
                 />
             </div>
+            <div>
+            <FormField 
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                    <FormItem className="grid grid-cols-4">
+                        <FormLabel>Name </FormLabel>
+                            <FormControl>
+                                <Input
+                                className="col-span-3"
+                                placeholder="Camera Name..."
+                                type="text"
+                                {...field}
+                                />
+                            </FormControl>
+                            <FormMessage className="col-span-4"/>
+                    </FormItem>
+                )}
+                />
+            </div>
             <Button variant={"default"} type="submit" className="w-full cursor-pointer">Save changes</Button> 
-            {/* <FormSuccess message={success ? "Category added successfuly!" : ""} />
-            <FormError message={success === false ? errorMessage : ""}/> */}
+            <FormSuccess message={success ? "Camera added successfuly!" : ""} />
+            <FormError message={success === false ? "Error adding camera" : ""}/>
         </form>
     </Form>
       )

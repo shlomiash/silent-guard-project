@@ -17,16 +17,13 @@ import { CameraSchema } from "@/schemas/camera-schema";
 
 export const addCamera = actionClient
   .schema(CameraSchema)
-  .action(async ({ parsedInput: { admin,password,url } }) => {
-
-    const fullURL  = `http://81.218.244.80:5000/stream?url=${url}/video`;
-    console.log("fullURL", fullURL);
+  .action(async ({ parsedInput: { admin,password,url,categoryID,name } }) => {
 
     //Checking if User exists
     const existingCamera= await db 
     .select()
     .from(camerasTable)
-    .where( eq(camerasTable.connectionUrl, fullURL))
+    .where( eq(camerasTable.connectionUrl, url))
 
     if (existingCamera.length > 0) {
         //Check if the camera already exists in the same category
@@ -34,35 +31,19 @@ export const addCamera = actionClient
       return { error: "Already exisiting camera" };
     }
 
+    //Checking name, password, url, categoryID, admin is not null
+    if (!name || !password || !url || !categoryID || !admin) {
+        throw new Error("Missing required camera data");
+      }
+
     //If the camera does not exist, add it to the database
-
-    fetch(fullURL, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Basic ' + btoa(admin + ':' + password)
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            return response.text().then(msg => {
-                throw new Error(`Error ${response.status}: ${msg}`);
-            });
-        }
-        return response.text();
-    })
-    .then(data => {
-        console.log('Data received:', data);
-    })
-    .catch(error => {
-        console.error('Fetch error:', error.message);
-    });
-
-
-    const newCamera = {
-        admin,
+    await db.insert(camerasTable).values({
+        name,
         password,
-        connectionUrl: fullURL,
-    }
+        connectionUrl: url,
+        categoryId: categoryID,
+        admin,
+      });   
 
       return { success: "Successfully logged in" };
     }

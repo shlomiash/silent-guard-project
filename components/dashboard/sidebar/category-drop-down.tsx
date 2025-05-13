@@ -8,7 +8,7 @@ export default function CategoryDropDown({categoryID}: {categoryID: string}) {
     return(
         <div>
             <div className='flex gap-2'>
-                <AddCameraButton/>
+                <AddCameraButton categoryID={categoryID}/>
                 <EditCategoryButton categoryID={categoryID}/>
                 <DeleteCategoryButton categoryID={categoryID} />
             </div>

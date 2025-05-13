@@ -1,13 +1,5 @@
 // Shadcn Imports
 import { ScrollArea } from "@/components/ui/scroll-area"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
 //My Imports
 import AddCategoryButton from "./sidebar-add-category"
@@ -15,7 +7,6 @@ import CategoryDropDown from "./category-drop-down"
 
 //Categories Data
 import { handleFetchCategories } from "@/server/actions/handle-fetch-categories"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export default async function ScrollAreaView() {

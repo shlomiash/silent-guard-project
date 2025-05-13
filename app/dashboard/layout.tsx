@@ -7,16 +7,25 @@ import { auth } from "@/auth";
 
 // Context
 import { CategoryModeProvider } from "@/components/context/mode-context";
+import { getCameras } from "@/server/actions/getCameras";
+import CameraStreamerManager from "@/components/dashboard/camera-side/hook/camera-stream";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
 
-  if (!session) {
+   if (!session) {
     return <NotUser />;
   }
 
+  const userId = session.user?.id
+  
+  const res = await getCameras(userId!)
+  
+  const cameras = res.cameras;
+  
   return (
     <CategoryModeProvider>
+       <CameraStreamerManager cameras={cameras ?? []} />
       <div className="h-full w-full flex">
         <div className="left-side-bar w-1/6 h-full border-r-2 border-slate-400">
           <SideBar />

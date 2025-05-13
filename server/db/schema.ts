@@ -42,6 +42,12 @@ export const camerasTable = pgTable("cameras", {
     .notNull()
     .references(() => categoriesTable.id),
 
+  userId: text("user_id").references(() => usersTable.id),
+
+  admin: varchar("admin", { length: 255 }).notNull(),
+
+  password: varchar("password", { length: 255 }).notNull(),
+
   connectionUrl: varchar("connection_url", { length: 255 }).notNull(),
 
   name: varchar("name", { length: 255 }).notNull(),

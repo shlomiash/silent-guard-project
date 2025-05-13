@@ -1,20 +1,21 @@
-
-
-import CategoryModeView from "@/components/category/category-mode";
-import CategoryIdError from "@/components/category/error-category";
-import { checkCategoryId } from "@/server/actions/check-category";
-import Link from "next/link";
+import CameraGrid from "@/components/dashboard/camera-side/camera-grid";
+import { getCategoryCameras } from "@/server/actions/getCategoryCameras";
 
 export default async function CategoryPage({ params }: { params: { categoryId: string } }) {
+  const { categoryId } = params;
 
-   const res = await checkCategoryId(params.categoryId)
+  const res = await getCategoryCameras(categoryId);
 
-   if(res.error) {
-    return <CategoryIdError/>
-   }
+  if (res.error || !res.cameras) {
+    return <div>{res.error || 'Cameras not found'}</div>;
+  }
 
+  const cameras = res.cameras;
 
   return (
-    <CategoryModeView categoryId={params.categoryId}/>
+    <CameraGrid
+      cameras={cameras}
+      currentCategory={categoryId}
+    />
   );
 }

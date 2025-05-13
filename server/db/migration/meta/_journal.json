@@ -29,6 +29,27 @@
       "when": 1745998485770,
       "tag": "0003_stale_patch",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1746545034153,
+      "tag": "0004_flat_polaris",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1746687237911,
+      "tag": "0005_rainy_blockbuster",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1746687406091,
+      "tag": "0006_luxuriant_wilson_fisk",
+      "breakpoints": true
     }
   ]
 }

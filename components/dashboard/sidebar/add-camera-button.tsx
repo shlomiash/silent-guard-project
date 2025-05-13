@@ -17,7 +17,7 @@ import {
 import AddCameraForm from "./add-camera-form"
 import { Camera} from "lucide-react";
 
-export default function AddCameraButton() {
+export default function AddCameraButton({categoryID}: {categoryID: string}) {
 
     return (
         <Dialog >
@@ -31,7 +31,7 @@ export default function AddCameraButton() {
                Fill the authorization details for the camera
               </DialogDescription>
             </DialogHeader>
-                <AddCameraForm/>  
+                <AddCameraForm categoryID={categoryID}/>  
           </DialogContent>
         </Dialog>
       )
