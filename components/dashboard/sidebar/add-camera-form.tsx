@@ -25,12 +25,15 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addCamera } from "@/server/actions/addCamera";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 
 
 export default function AddCameraForm({categoryID}: {categoryID: string}) {
 
   console.log('yo im here')
+
+  const router = useRouter();
 
   //Success State
   const [success, setSuccess] = useState<boolean | null>(null);
@@ -61,6 +64,8 @@ export default function AddCameraForm({categoryID}: {categoryID: string}) {
         }
 
       setSuccess(false);
+
+      router.refresh();
         
     }
 

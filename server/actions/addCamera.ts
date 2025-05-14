@@ -19,9 +19,24 @@ export const addCamera = actionClient
   .schema(CameraSchema)
   .action(async ({ parsedInput: { admin,password,url,categoryID,name } }) => {
 
-    ///Check Camera Status 
+    console.log('hello');
 
-    
+    ///Check Camera Status
+    const response = await fetch(
+      `http://81.218.244.80:5000/stream?url=${encodeURIComponent(url + "/video")}`,
+      {
+        headers: {
+          Authorization: 'Basic ' + btoa(admin + ':' + password),
+        },
+      }
+    )
+
+    console.log(response);
+
+    if (!response.ok) {
+      
+      return { error: "Camera is not accessible" };
+    }
 
     const session = await auth();
 

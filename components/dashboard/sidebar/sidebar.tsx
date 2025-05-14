@@ -10,7 +10,7 @@ export default function SideBar() {
         <div className='p-3 bg-slate-100 rounded-3xl shadow-md'>
           <SideBarHeader/>
         </div>
-        <div className='p-2  bg-slate-100 rounded-3xl shadow-md'>
+        <div className='p-2  bg-slate-100 rounded-xl shadow-sm'>
           <SideBarView/>
         </div>
       </div>

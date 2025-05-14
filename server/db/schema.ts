@@ -38,9 +38,9 @@ export const camerasTable = pgTable("cameras", {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
 
-  categoryId: text("id_category")
+    categoryId: text("id_category")
     .notNull()
-    .references(() => categoriesTable.id),
+    .references(() => categoriesTable.id, { onDelete: "cascade" }),
 
   userId: text("user_id").references(() => usersTable.id),
 

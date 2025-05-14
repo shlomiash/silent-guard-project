@@ -40,10 +40,11 @@ export default function CameraGrid({ cameras, currentCategory }: Props) {
     <div className="grid gap-6 p-20" style={{
       gridTemplateColumns: fullscreenCameraId ? '1fr' : 'repeat(auto-fit, minmax(300px, 1fr))'
     }}>
+      
       {externalAlert && (
         <div className="bg-yellow-300 text-black p-3 rounded shadow flex items-center gap-3">
           <AlertTriangle className="h-5 w-5" />
-          אזעקה בזיהוי מצלמה "{externalAlert.cameraName}" מקטגוריה "{externalAlert.category}"
+          Danger in camera "{externalAlert.cameraName}" category "{externalAlert.category}"
         </div>
       )}
 

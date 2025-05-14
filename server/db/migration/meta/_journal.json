@@ -50,6 +50,13 @@
       "when": 1746687406091,
       "tag": "0006_luxuriant_wilson_fisk",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1747220514202,
+      "tag": "0007_sharp_sway",
+      "breakpoints": true
     }
   ]
 }

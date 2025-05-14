@@ -1,8 +1,8 @@
 import CameraGrid from "@/components/dashboard/camera-side/camera-grid";
 import { getCategoryCameras } from "@/server/actions/getCategoryCameras";
 
-export default async function CategoryPage({ params }: { params: { categoryId: string } }) {
-  const { categoryId } = params;
+export default async function CategoryPage({ params }: { params: Promise<{ categoryId: string }> }) {
+  const { categoryId } = await params;
 
   const res = await getCategoryCameras(categoryId);
 

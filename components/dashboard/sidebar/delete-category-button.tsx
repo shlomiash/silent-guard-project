@@ -28,7 +28,8 @@ export default function DeleteCategoryButton({categoryID}: {categoryID: string})
         return;
     }
     // If the update is successful, you can redirect or show a success message
-    router.refresh();
+
+    router.push("/dashboard");
   }
 
     return (

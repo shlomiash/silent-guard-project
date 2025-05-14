@@ -30,6 +30,8 @@ export async function startMetadataStream(
     }
   )
 
+  console.log('blaaaaaaa',response);
+
   const reader = response.body?.getReader()
   let buffer = new Uint8Array()
 

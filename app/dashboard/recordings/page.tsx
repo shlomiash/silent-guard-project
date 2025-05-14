@@ -1,6 +1,13 @@
+import RecordingsGrid from "@/components/dashboard/recordings/recordings-grid";
+import { handleFetchCategories } from "@/server/actions/handle-fetch-categories";
 
-export default function RecordingsDashboard() {
 
-  return (<h1>Welcome to Recordings</h1>)
+
+export default async function RecordingsDashboard() {
+
+  const userCategories = await handleFetchCategories();
+
+  return <RecordingsGrid categories={userCategories}/>
     
 }
+

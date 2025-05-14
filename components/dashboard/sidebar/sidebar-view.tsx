@@ -13,27 +13,19 @@ export default function SideBarView() {
 
     return (
       <div className="flex flex-col gap-2 ">
-        <button
-        onClick={() => setCategoryMode('cameras')}
-        className={`flex items-center gap-2 text-sm cursor-pointer p-2 rounded-md transition ${
-          categoryMode === 'cameras'
-            ? 'text-blue-600 bg-blue-50'
-            : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
-        }`}
-      >
-        <Eye className="w-4 h-4" />
-        Live View
-      </button>
-      <button
-       onClick={() => setCategoryMode('recordings')}
-       className={`flex items-center gap-2 text-sm cursor-pointer p-2 rounded-md transition ${
+      <Button variant={"ghost"}
+       asChild
+       className={`flex items-center gap-2 text-sm cursor-pointer bg-transparent border-white p-2 transition ${
           categoryMode === 'recordings'
             ? 'text-blue-600 bg-blue-50'
             : 'text-gray-700 hover:text-blue-600  '
         }`}  >
-        <Video className="w-4 h-4" />
-        Recordings
-      </button>
+          <Link href="/dashboard/recordings">
+          <Video className="w-4 h-4" />
+          Recordings
+          </Link>
+        
+      </Button>
     </div>
     )
   }
