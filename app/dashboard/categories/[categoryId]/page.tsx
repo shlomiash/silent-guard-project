@@ -13,9 +13,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   const cameras = res.cameras;
 
   return (
-    <CameraGrid
-      cameras={cameras}
-      currentCategory={categoryId}
-    />
+
+      <CameraGrid
+        cameras={cameras}
+        currentCategory={categoryId}
+      />
+
   );
 }

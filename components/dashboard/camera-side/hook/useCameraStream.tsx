@@ -18,6 +18,9 @@ const streamMetadataStatus = new Map<string, MetadataStatus>()
 // Track metadata callbacks for each component using a stream
 const metadataCallbacks = new Map<string, Set<(status: MetadataStatus) => void>>()
 
+// Track cleanup functions for each stream
+const streamCleanupFunctions = new Map<string, () => void>()
+
 interface UseCameraStreamOptions {
   url: string
   canvasRef: React.RefObject<HTMLCanvasElement | null>
@@ -43,11 +46,12 @@ export function useCameraStream({
     
     // Create a new emitter if this is the first time initializing this stream
     if (!streamEmitters.has(url)) {
+      console.log(`[STREAM DEBUG] Creating NEW stream for URL: ${url}`)
       const emitter = createMetadataEmitter()
       streamEmitters.set(url, emitter)
       streamMetadataStatus.set(url, 'safe')
       
-      // Initialize the stream
+      // Initialize the stream with the worker
       startMetadataStream(emitter, {
         url,
         username: 'admin',
@@ -56,6 +60,13 @@ export function useCameraStream({
           // Always update the frame, even during danger events
           streamFrames.set(url, blob)
         },
+      }).then(cleanup => {
+        // Store the cleanup function if one is returned
+        if (cleanup) {
+          streamCleanupFunctions.set(url, cleanup)
+        }
+      }).catch(error => {
+        console.error('[STREAM ERROR] Failed to start stream:', error)
       })
       
       // Set up metadata listener
@@ -71,39 +82,46 @@ export function useCameraStream({
           })
         }
       })
+    } else {
+      console.log(`[STREAM DEBUG] Using EXISTING stream for URL: ${url}`)
     }
     
     // Drawing function to render frames on the canvas
     const draw = async () => {
-      // Skip if this canvas is no longer the active one for this URL
-      if (activeCanvases.get(url) !== canvasRef.current) {
-        rafIdRef.current = requestAnimationFrame(draw)
-        return
+      // Store a local reference to the canvas to ensure it doesn't change during execution
+      const currentCanvas = canvasRef.current
+      const activeCanvas = activeCanvases.get(url)
+      
+      // Even if there's a reference mismatch, we'll still try to draw if we have a valid canvas
+      // This makes the stream more resilient to temporary UI changes
+      if (activeCanvas !== currentCanvas && currentCanvas) {
+        console.log("[STREAM DEBUG] Canvas reference mismatch - attempting to draw anyway")
+        // Update the active canvas reference to the current one
+        activeCanvases.set(url, currentCanvas)
       }
       
       const frame = streamFrames.get(url)
-      const canvas = canvasRef.current
       
-      if (!frame || !canvas) {
+      // Skip if there's no frame or canvas
+      if (!frame || !currentCanvas) {
         rafIdRef.current = requestAnimationFrame(draw)
         return
       }
 
-      const ctx = canvas.getContext('2d')
+      const ctx = currentCanvas.getContext('2d')
       if (!ctx) {
         rafIdRef.current = requestAnimationFrame(draw)
         return
       }
 
       try {
-        const img = await createImageBitmap(frame)
-        canvas.width = img.width
-        canvas.height = img.height
-        ctx.drawImage(img, 0, 0)
-        // Clear the frame after drawing to avoid redrawing the same frame
-        streamFrames.set(url, null)
+        const img = await createImageBitmap(frame);
+        currentCanvas.width = img.width;
+        currentCanvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        // Don't clear the frame after drawing to avoid losing frames during UI updates
       } catch (e) {
-        console.warn('Failed to draw frame:', e)
+        console.warn('[STREAM ERROR] Failed to draw frame:', e);
       }
 
       rafIdRef.current = requestAnimationFrame(draw)
@@ -133,9 +151,24 @@ export function useCameraStream({
       // This ensures the stream keeps running when navigating between routes
       // If you want to reset streams when completely exiting the dashboard,
       // that should be handled at a higher level
+      
+      // If there are no more components using this stream, we could clean it up
+      // Uncomment this code if you want to clean up streams when no components are using them
+      /*
+      if (callbacks && callbacks.size === 0) {
+        console.log(`[STREAM DEBUG] No more components using stream for URL: ${url}, cleaning up`)
+        const cleanup = streamCleanupFunctions.get(url)
+        if (cleanup) {
+          cleanup()
+          streamCleanupFunctions.delete(url)
+        }
+        streamEmitters.delete(url)
+        streamFrames.delete(url)
+        streamMetadataStatus.delete(url)
+        metadataCallbacks.delete(url)
+      }
+      */
     }
   }, [url, onMetadata])
-
-
 
 }

@@ -78,7 +78,7 @@ export default function RecordingsGrid({categories}: {categories: CategorySchema
                     </span>
                 </div>
                 <video
-                  src="/BigBuckBunny.mp4"
+                  src="/videoforrecordings.mp4"
                   className="w-full h-full"
                   controls
                   poster="/video-poster.jpg"

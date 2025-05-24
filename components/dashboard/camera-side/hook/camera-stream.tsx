@@ -30,7 +30,7 @@ export default function CameraStreamerManager({ cameras }: { cameras: Camera[] }
         // The actual video display will be handled by CameraCard components
         useCameraStream({
           url: camera.url,
-          canvasRef,
+          canvasRef:{ current: null },
           onMetadata: () => {
             const expectedPath = `/dashboard/categories/${camera.category}`
             if (pathname !== expectedPath) {
@@ -42,7 +42,7 @@ export default function CameraStreamerManager({ cameras }: { cameras: Camera[] }
 
         // We don't need to display these canvases at all
         // They're just there to monitor the streams
-        return <canvas key={camera.id} ref={canvasRef} style={{ display: 'none', width: 1, height: 1 }} />
+        return null
       })}
 
       {/* Warning UI */}

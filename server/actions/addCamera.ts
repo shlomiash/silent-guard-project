@@ -21,23 +21,7 @@ export const addCamera = actionClient
 
     console.log('hello');
 
-    ///Check Camera Status
-    const response = await fetch(
-      `http://81.218.244.80:5000/stream?url=${encodeURIComponent(url + "/video")}`,
-      {
-        headers: {
-          Authorization: 'Basic ' + btoa(admin + ':' + password),
-        },
-      }
-    )
-
-    console.log(response);
-
-    if (!response.ok) {
-      
-      return { error: "Camera is not accessible" };
-    }
-
+    
     const session = await auth();
 
     console.log("User session:", session);
@@ -70,6 +54,27 @@ export const addCamera = actionClient
       }
 
     console.log("Camera data:", name, password, url, categoryID, admin);
+
+    ///Check Camera Status
+    const response = await fetch(
+      `http://81.218.244.80:5000/check_camera?url=${encodeURIComponent(url + "/video")}`,
+      {
+        headers: {
+          Authorization: 'Basic ' + btoa(admin + ':' + password),
+
+        },
+      }
+    )
+
+    console.log(response);
+
+    if (!response.ok) {
+      
+      return { error: "Camera is not accessible" };
+    }
+
+
+
 
     //If the camera does not exist, add it to the database
     await db.insert(camerasTable).values({

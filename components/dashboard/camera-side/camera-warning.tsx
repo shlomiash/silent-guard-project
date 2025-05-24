@@ -19,7 +19,7 @@ export default function CameraWarning({ cameraName, categoryId, onDismiss }: Cam
           <p>
             Camera <span className="font-semibold">{cameraName}</span> triggered an alert
             in another category.{' '}
-            <Link
+            <Link onClick={onDismiss}
               href={`/dashboard/categories/${categoryId}`}
               className="underline font-medium text-blue-800"
             >
