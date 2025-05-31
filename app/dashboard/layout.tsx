@@ -5,8 +5,6 @@ import NotUser from "@/components/auth/not-user";
 //Imports Auth
 import { auth } from "@/auth";
 
-// Context
-import { CategoryModeProvider } from "@/components/context/mode-context";
 import { getCameras } from "@/server/actions/getCameras";
 import CameraStreamerManager from "@/components/dashboard/camera-side/hook/camera-stream";
 
@@ -24,7 +22,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const cameras = res.cameras;
   
   return (
-    <CategoryModeProvider>
+    <div className="h-full w-full">
        <CameraStreamerManager cameras={cameras ?? []} />
       <div className="h-full w-full flex">
         <div className="left-side-bar w-1/6 h-full border-r-2 border-slate-400">
@@ -34,6 +32,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
           {children}
         </div>
       </div>
-    </CategoryModeProvider>
+    </div>
+      
+
   );
 }

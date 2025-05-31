@@ -1,3 +1,4 @@
+//Imports UI
 import CameraGrid from "@/components/dashboard/camera-side/camera-grid";
 import { getCategoryCameras } from "@/server/actions/getCategoryCameras";
 
