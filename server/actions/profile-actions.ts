@@ -70,17 +70,6 @@ if (
       .where(eq(usersTable.id, userId))
   } 
   
-//   else {
-//     // Update without changing password
-//     await db.update(users)
-//       .set({ 
-//         name: data.name,
-//         email: data.email,
-//         profileImage: data.profileImage
-//       })
-//       .where(eq(users.id, userId))
-//   }
-
   revalidatePath("/settings")
   return { success: true }
 }

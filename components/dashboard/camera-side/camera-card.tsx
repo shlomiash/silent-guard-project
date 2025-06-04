@@ -31,7 +31,7 @@ export default function CameraCard({
   dismissAlert,
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  // const audioRef = useRef<HTMLAudioElement>(null)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
   useCameraStream({
     url: camera.url,
@@ -41,12 +41,19 @@ export default function CameraCard({
     },
   })
 
-  // useEffect(() => {
-  //   if (!showAlert && audioRef.current) {
-  //     audioRef.current.pause()
-  //     audioRef.current.currentTime = 0
-  //   }
-  // }, [showAlert])
+  useEffect(() => {
+    if (audioRef.current) {
+      if (showAlert) {
+        console.log('pita')
+        audioRef.current.play().catch((err) => {
+          console.error('Audio playback failed:', err)
+        })
+      } else {
+        audioRef.current.pause()
+        audioRef.current.currentTime = 0
+      }
+    }
+  }, [showAlert])
 
   return (
     <div
@@ -60,7 +67,7 @@ export default function CameraCard({
         ref={canvasRef}
         className="w-full h-full object-cover"
       />
-      {/* <audio ref={audioRef} src="/alarm-sound.mp3" loop /> */}
+      <audio ref={audioRef} src="/alarm-sound.mp3" loop />
 
       <div className="absolute top-2 left-2 flex items-center justify-between w-full px-2 z-10">
         <div className="bg-black/50 text-white text-sm px-2 py-1 rounded">

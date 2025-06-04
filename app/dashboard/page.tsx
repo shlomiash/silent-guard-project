@@ -30,23 +30,15 @@ export default async function WelcomeDashboard() {
       </div>
 
       {/* Dashboard Card */}
-      <div className="relative flex flex-col h-full justify-center items-center bg-transparent rounded-2xl p-10 max-w-lg w-full text-center space-y-8">
+      <div className="relative flex flex-col h-full justify-center items-center bg-transparent rounded-2xl p-10 max-w-lg w-full text-center space-y-4">
         <div>
            <h1 className="text-[45px] font-bold text-gray-800 uppercase">Welcome to Your Dashboard!</h1>
            <p className="text-gray-500">Manage your camera feeds with ease</p>
         </div>
 
         <div className="flex justify-center gap-6 mt-6">
-          <Button
-            className="text-white cursor-pointer px-10 py-5 rounded-xl font-semibold"
-          >
-            <Link href={"/dashboard/live-view"}>
-              Live View
-            </Link>
-            
-          </Button>
           <Button asChild
-            className="bg-gray-800 text-white px-10 cursor-pointer py-5 rounded-xl font-semibold hover:bg-gray-900 transition"
+            className=" text-white px-10 cursor-pointer py-5 rounded-xl font-semibold hover:bg-gray-900 transition"
           >
             <Link href={"/dashboard/recordings"}>
              Recordings

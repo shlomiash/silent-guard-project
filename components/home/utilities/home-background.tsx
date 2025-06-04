@@ -6,7 +6,7 @@ export default function HomeBackground() {
         <Image 
         alt="background" 
         src="/background-front.png" 
-        width={800}
+        width={700}
         height={800}
         className="absolute bottom-0 right-0 z-0"
         style={{ zIndex: 0 }}

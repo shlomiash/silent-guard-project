@@ -64,21 +64,22 @@ export default function RecordingsGrid({categories}: {categories: CategorySchema
           </Select>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {currentRecordings.map((recording) => (
+          {currentRecordings.map((recording, index) => (
             <div key={recording.name} className="bg-white rounded-lg overflow-hidden shadow">
               <div className="relative bg-black aspect-video">
                 <div className="absolute top-4 left-4 z-10">
-                    <span
+                  {/* Category name */}
+                    {/* <span
                         className="px-3 py-1 rounded-full text-sm text-white font-medium opacity-80"
                         style={{
                             backgroundColor: recording.color
                         }}
                         >
                         {recording.name}
-                    </span>
+                    </span> */}
                 </div>
                 <video
-                  src="/videoforrecordings.mp4"
+                  src={`/rec${index + 1}.mp4`}
                   className="w-full h-full"
                   controls
                   poster="/video-poster.jpg"

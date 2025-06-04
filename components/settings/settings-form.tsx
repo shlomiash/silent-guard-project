@@ -44,7 +44,6 @@ export function SettingsForm() {
       await updateProfile({
         currentPassword: data.currentPassword,
         newPassword: data.newPassword,
-        profileImage,
       })
 
       setStatusMessage({
@@ -103,41 +102,6 @@ export function SettingsForm() {
         <Card className="px-14 pb-12 ">
           <CardContent className="pt-6">
             <div className="space-y-6">
-              <div className="flex flex-col items-center space-y-4">
-                <Avatar className="h-24 w-24">
-                  <AvatarImage src={profileImage || "/placeholder.svg?height=96&width=96"} />
-                  <AvatarFallback>SG</AvatarFallback>
-                </Avatar>
-
-                <div className="flex items-center gap-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => document.getElementById("profile-image")?.click()}
-                    disabled={isUploading}
-                  >
-                    {isUploading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Uploading
-                      </>
-                    ) : (
-                      <>
-                        <Upload className="mr-2 h-4 w-4" />
-                        Upload Image
-                      </>
-                    )}
-                  </Button>
-                  <Input
-                    id="profile-image"
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleImageUpload}
-                  />
-                </div>
-              </div>
-
               <div>
                 <h3 className="text-lg font-medium">Change Password</h3>
                 <p className="text-sm text-muted-foreground mb-4">

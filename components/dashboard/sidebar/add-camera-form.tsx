@@ -153,7 +153,7 @@ export default function AddCameraForm({categoryID}: {categoryID: string}) {
                 )}
                 />
             </div>
-            <Button variant={"default"} type="submit" className="w-full cursor-pointer">Save changes</Button> 
+            <Button variant={"default"} type="submit" className="w-full cursor-pointer"> Add Camera</Button> 
             <FormSuccess message={success ? "Camera added successfuly!" : ""} />
             <FormError message={success === false ? "Error adding camera" : ""}/>
         </form>

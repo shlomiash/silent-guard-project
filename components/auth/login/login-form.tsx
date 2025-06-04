@@ -33,6 +33,7 @@ import Link from "next/link";
 export default function LoginForm(){
   //Success State
   const [success, setSuccess] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   //Intializing a new react-hook-form instance.
   //Using LoginSchema to validate the form
@@ -45,6 +46,7 @@ export default function LoginForm(){
   });
 
   const onSubmit = async (values:LoginSchemaType) =>{
+    setLoading(true);
 
     //Logic for handling the login form submission
     const res = await handleLogin(values);
@@ -58,6 +60,7 @@ export default function LoginForm(){
     }
 
     setSuccess(false);
+    setLoading(false);
   }
 
 
@@ -118,7 +121,7 @@ export default function LoginForm(){
           </div>
         </div>
         <Button type="submit" className="w-full">
-          Login
+          {loading ? "Logging in..." : "Login"}
         </Button>
         <Button variant={"outline"} asChild className="w-full">
           <Link href="/auth/register">Create an account</Link>

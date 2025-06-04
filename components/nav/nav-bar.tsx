@@ -28,9 +28,9 @@ export default async function NavBar() {
           <li>
             {session ? <AdminBar session={session}/> : <LoginButton />}
           </li>
-          <li>
+          {/* <li>
             <ModeToggle/>
-          </li>
+          </li> */}
         </div>
       </ul>
     </nav>
